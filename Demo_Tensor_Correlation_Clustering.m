@@ -6,8 +6,8 @@ tic
 %% Calculation of similarity matrix
 R = 36; % Model order of CPD
 Modes = 4; % the number of modes of the decomposed tensor
-Runs = 50; % the number of runs
-Resultfile = 'Multi_runs_result_R#36'; % The folder that used to store CPD results. The number of files in the folder is exactly same with Runs
+Runs = 20; % the number of runs
+Resultfile = 'Multi_runs_results'; % The folder that used to store CPD results. The number of files in the folder is exactly same with Runs
 file = dir([Resultfile filesep '*.mat']);
 for isRun = 1:Runs
         load([Resultfile filesep file(isRun).name]);
@@ -17,11 +17,11 @@ for isRun = 1:Runs
         end
     end
     for isMode = 1:Modes
-        Modedata{isMode} = [Modedata{isMode}  P.u{isMode}];
+        Modedata{isMode} = [Modedata{isMode}  U{isMode}];
     end
 end
 for isMode = 1:Modes
-    Sim{isMode} = corr(Modedata{isMode});
+    Sim{isMode} = abs(corr(Modedata{isMode}));
 end
 %% Correlation based Tensor Clustering
 [in_avg,partition,P,similarity,CentroidIndex]=f_Tensor_Correlation_Clustering(Sim,R);
