@@ -29,7 +29,7 @@ D = sim2dis(Sim);
 for i = 1:nbclusters
     P = find(partition(nbclusters,:)==i);
     [~,ind]=max(sum(Sim(P,P)));
-    CentroidIndex(i) = ind;
+    CentroidIndex(i) = P(ind);
 end
 %%
 [Iq,in_avg,ext_avg]=clusterquality('mean',corr(newspace'),partition(nbclusters,:));
